@@ -18,8 +18,7 @@ sed -i 's/HISTFILESIZE=.*/HISTFILESIZE=20000/g' "$HOME/.bashrc"
 mkdir -p ~/.history
 
 # Crear tarea en el crontab
-crontab -l > crontab_new 
-echo '0 0 * * 0 [[ $(wc -l < ~/.bash_history) -gt 1999 ]] && head -n 1000 ~/.bash_history > ~/.history/history_$(date \'+%F_%T\')_$(hostname).log && sed -i \'1,1000d\' ~/.bash_history
-' >> crontab_new
+crontab -l > crontab_new
+echo "0 0 * * 0 [[ \$(wc -l < ~/.bash_history) -gt 1999 ]] && head -n 1000 ~/.bash_history > ~/.history/history_\$(date '+%F_%T')_\$(hostname).log && sed -i '1,1000d' ~/.bash_history" >> crontab_new
 crontab crontab_new
 rm crontab_new
